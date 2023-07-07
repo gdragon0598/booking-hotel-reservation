@@ -12,14 +12,26 @@ public class MainMenuManager implements MenuManager{
         this.mmService = mmService;
         this.customerService = customerService;
     }
-
-    public void open() throws IOException {
+    @Override
+    public void open() {
         mmService.showMenu();
-        int choice = mmService.readChoice();
+        int choice = 0;
+        try {
+            choice = mmService.readChoice();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         switch (choice) {
-            case 3 -> customerService.addCustomer(packCustomerObject());
+            case 3 -> {
+                try {
+                    customerService.addCustomer(packCustomerObject());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
             case 5 -> System.exit(0);
         }
+        customerService.showAllCustomer();
     }
 
     private Customer packCustomerObject() throws IOException {

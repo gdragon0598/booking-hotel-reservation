@@ -7,13 +7,14 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 
 
-public class MainMenuService{
+public class MainMenuService extends MenuService {
     private final ConsolePrinter consolePrinter;
     private final BufferedReader bufferedReader;
     public MainMenuService(ConsolePrinter consolePrinter, BufferedReader bufferedReader) {
         this.consolePrinter = consolePrinter;
         this.bufferedReader = bufferedReader;
     }
+    @Override
     public void showMenu() {
         consolePrinter.print("");
         consolePrinter.print("Welcome to Vanya's Hotel Reservation App");
