@@ -1,4 +1,4 @@
-package com.exercise.hotel.model.util;
+package com.exercise.hotel.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

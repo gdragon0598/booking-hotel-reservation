@@ -1,8 +1,6 @@
 package com.exercise.hotel.model;
 
-import com.exercise.hotel.model.util.CustomerValidate;
-
-import java.io.Serializable;
+import com.exercise.hotel.util.CustomerValidate;
 
 public class Customer {
     private final String email;

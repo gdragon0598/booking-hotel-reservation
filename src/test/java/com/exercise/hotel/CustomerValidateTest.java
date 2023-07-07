@@ -1,5 +1,5 @@
 package com.exercise.hotel;
-import com.exercise.hotel.model.util.CustomerValidate;
+import com.exercise.hotel.util.CustomerValidate;
 import org.junit.jupiter.api.Test;
 
 public class CustomerValidateTest {
