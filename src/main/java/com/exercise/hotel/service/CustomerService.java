@@ -12,22 +12,17 @@ public class CustomerService {
     This class composes a collection of customers at runtime. Other packages can view this as a database interface.
     Make this class a singleton
      */
-
     private static CustomerService csInstance = null;
     private Map<String, Customer> customerMap;
-
     //Make the constructor private
     private CustomerService() {
         customerMap = new HashMap<>();
     }
-
-
     public static CustomerService getInstance() {
         if(csInstance == null)
             csInstance = new CustomerService();
         return csInstance;
     }
-
     /**
      * Creates a new {@link Customer} and records it if no customer already recorded with the provided email.
      * *@param email                     string, email of the customer
@@ -46,11 +41,10 @@ public class CustomerService {
             return false;
         else return tmp.authenticate(password);
     }
-
     //this is used for test
-    public void showAllCustomer() {
+    public List<Customer> getAllCustomer() {
         List<Customer> list = new ArrayList<Customer>(customerMap.values());
-        list.stream().forEach(System.out::println);
+        return list;
     }
     public Customer getCustomerByEmail(String email) {
         return customerMap.get(email);

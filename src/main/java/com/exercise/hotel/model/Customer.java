@@ -1,15 +1,11 @@
 package com.exercise.hotel.model;
-
 import com.exercise.hotel.util.CustomerValidate;
-
 import java.util.Objects;
-
 public class Customer {
     private final String email;   //use this as ID in the service collection
     private String password;
     private final String firstName;
     private final String lastName;
-
     public Customer(String email, String password, String firstName, String lastName) {
         if (CustomerValidate.emailValidate(email)) {
             this.email = email;
@@ -20,7 +16,6 @@ public class Customer {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
     public Customer(String email, String firstName, String lastName) {
         if (CustomerValidate.emailValidate(email)) {
             this.email = email;
@@ -30,23 +25,18 @@ public class Customer {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
     public String getEmail() {
         return email;
     }
-
     public String getFirstName() {
         return firstName;
     }
-
     public String getLastName() {
         return lastName;
     }
-
     public boolean authenticate(String password) {
         return this.password.equals(password);
     }
-
     @Override
     public String toString() {
         return "Customer{" +
@@ -55,7 +45,6 @@ public class Customer {
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,5 +52,4 @@ public class Customer {
         Customer customer = (Customer) o;
         return Objects.equals(email, customer.email);
     }
-
 }
