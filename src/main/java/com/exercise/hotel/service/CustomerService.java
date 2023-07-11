@@ -12,22 +12,17 @@ public class CustomerService {
     This class composes a collection of customers at runtime. Other packages can view this as a database interface.
     Make this class a singleton
      */
-
     private static CustomerService csInstance = null;
     private Map<String, Customer> customerMap;
-
     //Make the constructor private
     private CustomerService() {
         customerMap = new HashMap<>();
     }
-
-
     public static CustomerService getInstance() {
         if(csInstance == null)
             csInstance = new CustomerService();
         return csInstance;
     }
-
     /**
      * Creates a new {@link Customer} and records it if no customer already recorded with the provided email.
      * *@param email                     string, email of the customer
@@ -40,6 +35,13 @@ public class CustomerService {
         customerMap.put(customer.getEmail(), customer);
         return true;
     }
+
+    /**
+     * This method is to check the if the email is belonged to a customer and the password is valid with that email
+     * @param email     a String,  email of the customer
+     * @param password  a String,  password of the customer
+     * @return true if email and password are valid
+     */
     public boolean verifyCustomer(String email, String password) {
         Customer tmp = customerMap.getOrDefault(email, null);
         if(tmp == null)
@@ -47,11 +49,20 @@ public class CustomerService {
         else return tmp.authenticate(password);
     }
 
-    //this is used for test
-    public void showAllCustomer() {
+    /**
+     * This method get all customers from the Collection of customer.
+     * @return  a List of Customer
+     */
+    public List<Customer> getAllCustomer() {
         List<Customer> list = new ArrayList<Customer>(customerMap.values());
-        list.stream().forEach(System.out::println);
+        return list;
     }
+
+    /**
+     * This method get the customer whose email is given.
+     * @param email String, email of the customer
+     * @return  Customer, the customer, of which is the given email
+     */
     public Customer getCustomerByEmail(String email) {
         return customerMap.get(email);
     }
