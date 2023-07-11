@@ -39,11 +39,11 @@ public class Customer {
     }
     @Override
     public String toString() {
-        return "Customer{" +
-                "email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+        return "Customer: " +
+                firstName +
+                " "  + lastName +
+                ", " + email
+                ;
     }
     @Override
     public boolean equals(Object o) {

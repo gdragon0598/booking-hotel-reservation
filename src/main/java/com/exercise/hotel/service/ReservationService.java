@@ -24,12 +24,24 @@ public class ReservationService {
             reservationService = new ReservationService();
         return reservationService;
     }
+
+    /**
+     * This method is to add a room to the current roomMap, which is a collection of room
+     * @param room room needs adding to the current collection of room.
+     * @throws IllegalArgumentException if room with the given room number already exists then throw this exception
+     */
     public void addARoom(IRoom room) {
         if(roomMap.containsKey(room.getRoomNumber())) {
             throw new IllegalArgumentException("Room with number " + room.getRoomNumber() + " already exists.");
         }
         roomMap.put(room.getRoomNumber(), room);
     }
+
+    /**
+     * Get a room with the given room number
+     * @param roomNumber
+     * @return a Room object
+     */
     public IRoom getARoom(int roomNumber) {
         if (!roomMap.containsKey(roomNumber)) {
             throw new IllegalArgumentException("There is no room with number " + roomNumber);
@@ -38,9 +50,9 @@ public class ReservationService {
     }
 
     /**
-     *
+     * Add a Reservation object to the current Collection of Reservation. If successfully add the reservation return true.
      * @param reservation
-     * @return
+     * @return true if successfully add the reservation else false
      */
     public boolean reserveARoom(Reservation reservation) {
         IRoom reservedRoom = reservation.getReservedRoom();
@@ -57,6 +69,13 @@ public class ReservationService {
         }
         return isSuccessReserve;
     }
+
+    /**
+     * Method to find from the current collection of room which rooms are free within the check-in date and check-out date
+     * @param checkInDate
+     * @param checkOutDate
+     * @return  a List of free room
+     */
     public List<IRoom> findFreeRooms(LocalDate checkInDate, LocalDate checkOutDate) {
         List<IRoom> allCurrentRooms =  new ArrayList<IRoom>(roomMap.values());
         allCurrentRooms = allCurrentRooms.parallelStream()
@@ -65,6 +84,14 @@ public class ReservationService {
                         }).toList();
         return allCurrentRooms;
     }
+
+    /**
+     * This method is to check a status of a room within a check-in date and a check-out date, whether it is free or reserved already
+     * @param room     room to check
+     * @param checkinDate
+     * @param checkoutDate
+     * @return  true if it is free else false
+     */
     private boolean checkRoomStatus(IRoom room, LocalDate checkinDate, LocalDate checkoutDate) {
         List<Reservation> reservations = reservationMap.get(room);
         boolean isAvailable = true;
@@ -79,11 +106,20 @@ public class ReservationService {
         return isAvailable;
     }
 
+    /**
+     * This returns a list of all reservations at the current
+     * @return  a List of Reservation
+     */
     public List<Reservation> getAllReservations() {
         List<List<Reservation>> reservationList = new ArrayList<>(reservationMap.values());
         return reservationList.stream().flatMap(s -> s.stream()).toList();
     }
 
+    /**
+     * This returns a list of all reservations of the given customer.
+     * @param currentCustomer   The customer whose reservations are returned
+     * @return                  A List of reservations
+     */
     public List<Reservation> getReservationByCustomer(Customer currentCustomer) {
         List<List<Reservation>> reservationList = new ArrayList<>(reservationMap.values());
         return reservationList.parallelStream().flatMap(s -> s.stream()).filter(reservation -> {
@@ -91,6 +127,10 @@ public class ReservationService {
         }).toList();
     }
 
+    /**
+     * This returns a list of all rooms in the collection
+     * @return  A List of room
+     */
     public List<IRoom> getAllRooms() {
         List<IRoom> roomList = new ArrayList<>(roomMap.values());
         return roomList;
